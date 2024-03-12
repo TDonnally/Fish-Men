@@ -1,10 +1,21 @@
+/**
+ * Controls:
+ * WASD = move character
+ * Spacebar = dash
+ * LMB = charge and throw long range attack
+ * RMB = Swipe with short range attack
+ */
+
+
+
+
 let xSpeed = 0;
 let ySpeed = 0;
 let velocity = 5;
 const keysDown = []
 
 
-// Function to move the square
+//move the character(WASD)
 function moveCharacter(direction) {
     switch(direction) {
         case "W":
@@ -25,7 +36,7 @@ function moveCharacter(direction) {
             break;
     }
 }
-// Function for key release
+//stop the character on WASD release
 function stopCharacter(direction) {
     switch(direction) {
         case "W":
@@ -66,7 +77,36 @@ function stopCharacter(direction) {
             break;
     }
 }
-
+//charge long range attack on LMB down
+function chargeHook(direction){
+    if(ySpeed != 0){
+        ySpeed = ySpeed/velocity;
+    }
+    if(xSpeed != 0){
+        xSpeed = xSpeed/velocity;
+    }
+    velocity = 1;
+    console.log("charging");
+}
+//throw long range attack on LMB release
+function throwHook(direction){
+    if(xSpeed != 0){
+        xSpeed = xSpeed * 5;
+    }
+    if(ySpeed != 0){
+        ySpeed = ySpeed * 5;
+    }
+    velocity = 5;
+    console.log("throwing");
+}
+//swipe on RMB click 
+function swipeBlade(direction){
+    console.log("swipe");
+}
+//dash when spacebar is pressed
+function dash(direction){
+    console.log("dashing")
+}
 // Event listener for keydown event
 document.addEventListener("keydown", function(event) {
     keysDown[event.key] = true;
@@ -74,6 +114,9 @@ document.addEventListener("keydown", function(event) {
     const keyPressed = event.key.toUpperCase();
     if (["W", "A", "S", "D"].includes(keyPressed)) {
         moveCharacter(keyPressed);
+    }
+    if (keyPressed == " "){
+        dash();
     }
 });
 // Event listener for keydown event
@@ -83,7 +126,33 @@ document.addEventListener("keyup", function(event) {
         stopCharacter(keyReleased);
     }
 });
-
+//Event listener for mouse down
+document.addEventListener("mousedown", function(event) {
+    event.preventDefault();
+    const mouseButtonPressed = event.button;
+    switch(mouseButtonPressed){
+        case 0: 
+            chargeHook();
+            break;
+        case 2:
+            swipeBlade();
+            break;
+    }
+})
+//Event listener for mouse release
+document.addEventListener("mouseup", function(event) {
+    event.preventDefault();
+    const mouseButtonReleased = event.button;
+    switch(mouseButtonReleased){
+        case 0:
+            throwHook();
+            break;
+    }
+})
+//Prevent menu from opening on right click
+document.addEventListener("contextmenu", function(event) {
+    event.preventDefault();
+});
 
 export{
     xSpeed,
