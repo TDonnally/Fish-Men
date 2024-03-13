@@ -7,10 +7,12 @@ let players = {};
 socket.on("connect", () => {
     console.log("connected");
 });
+
 socket.on("userID", (id) => {
     userID = id;
     console.log(userID);
 });
+
 socket.on("players info", (playersCoordinates) => {
     players = playersCoordinates;
 });

@@ -7,13 +7,16 @@
  */
 
 
-
+import { canvas, userX, userY } from "./main.js";
+import { getAngle, getMousePos } from "./mouse.js";
 
 let xSpeed = 0;
 let ySpeed = 0;
 let color = 'black';
 let velocity = 5;
-const keysDown = []
+let mouseAngle = 0;
+let charging = false;
+const keysDown = [];
 
 
 //move the character(WASD)
@@ -88,6 +91,7 @@ function chargeHook(direction){
     }
     velocity = 1;
     color = "red";
+    charging = true;
     console.log("charging");
 }
 //throw long range attack on LMB release
@@ -99,7 +103,8 @@ function throwHook(direction){
         ySpeed = ySpeed * 5;
     }
     velocity = 5;
-    color = "black"
+    color = "black";
+    charging = false;
     console.log("throwing");
 }
 //swipe on RMB click 
@@ -156,10 +161,23 @@ document.addEventListener("mouseup", function(event) {
 document.addEventListener("contextmenu", function(event) {
     event.preventDefault();
 });
+//Get mouse angle for charge up, long range attack, and slash
+document.addEventListener("DOMContentLoaded", function(e) {
+    // Event listener for mousemove event
+    canvas.addEventListener("mousemove", function(event) {
+        // Get the mouse position relative to the canvas
+        const mousePos = getMousePos(event, canvas);
+
+        // Log the angle
+        mouseAngle = (getAngle(userX, userY, mousePos.x, mousePos.y));
+    });
+})
 
 export{
     xSpeed,
     ySpeed, 
-    color
+    color,
+    mouseAngle,
+    charging
 }
 
