@@ -16,10 +16,10 @@ let playerCoordinates = {};
 io.on("connection", (socket) => {
     console.log("connection")
     socket.emit("userID", randomBytes(9).toString("hex"));
-    socket.on('player coordinates', (msg) => {
+    socket.on('player info', (msg) => {
         const data = JSON.parse(msg);
-        playerCoordinates[data.userid] = {userX: data.userX, userY: data.userY};
-        socket.emit(("players coordinates"), playerCoordinates);
+        playerCoordinates[data.userid] = {userX: data.userX, userY: data.userY, userColor: data.userColor};
+        socket.emit(("players info"), playerCoordinates);
     });
     socket.on('disconnect user', (id) => {
         console.log(id, "has disconnected");

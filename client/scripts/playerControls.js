@@ -11,6 +11,7 @@
 
 let xSpeed = 0;
 let ySpeed = 0;
+let color = 'black';
 let velocity = 5;
 const keysDown = []
 
@@ -86,6 +87,7 @@ function chargeHook(direction){
         xSpeed = xSpeed/velocity;
     }
     velocity = 1;
+    color = "red";
     console.log("charging");
 }
 //throw long range attack on LMB release
@@ -97,6 +99,7 @@ function throwHook(direction){
         ySpeed = ySpeed * 5;
     }
     velocity = 5;
+    color = "black"
     console.log("throwing");
 }
 //swipe on RMB click 
@@ -156,5 +159,7 @@ document.addEventListener("contextmenu", function(event) {
 
 export{
     xSpeed,
-    ySpeed
+    ySpeed, 
+    color
 }
+

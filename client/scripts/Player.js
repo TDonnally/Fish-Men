@@ -1,12 +1,13 @@
 class Player {
-    constructor(x, y, id,sprite){
+    constructor(x, y, color, id){
         this.x = x;
         this.y = y;
         this.id = id;
+        this.color = color
     }
 
     drawPlayer(ctx){
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, 50, 50);
     }
 }

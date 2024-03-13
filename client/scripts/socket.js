@@ -11,7 +11,7 @@ socket.on("userID", (id) => {
     userID = id;
     console.log(userID);
 });
-socket.on("players coordinates", (playersCoordinates) => {
+socket.on("players info", (playersCoordinates) => {
     players = playersCoordinates;
 });
 
